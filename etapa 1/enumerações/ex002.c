@@ -1,4 +1,4 @@
-/*O programa a seguir responde ao seguinte exercicio do livro Algoritmos e programacao com exemplos em C e Pascal
+/*O programa a seguir apresenta uma resolucao para o seguinte exercicio:
 
 exercício 8.2 Defina dois vetores v1 e v2, cada um com 5 elementos inteiros, sendo os elementos de ambos indexados
 pelo tipo Nrs, cujos valores são (UM, DOIS, TRES, QUATRO, CINCO). Construa um programa que:
