@@ -18,7 +18,8 @@ void scan(char frase[81], int Palavras[500][40])
     {
         printf("Digite uma frase: \n");
         gets(frase);
-        strcat(frase, " \0");
+        if (strlen(frase) - 1 != " \0")
+            strcat(frase, " \0");
         for (i = 0; i < 81; i ++){
             if (frase[i] == ' '){
                 Palavras[linha][coluna] = i;
