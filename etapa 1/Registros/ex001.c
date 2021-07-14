@@ -1,3 +1,14 @@
+/* O programa a seguir apresenta uma resolucao para o seguinte exercicio:
+
+a variável do tipo registro que tenha dois campos, sendo o primeiro um vetor 
+de três elementos inteiros e o segundo um valor inteiro. Faça um programa que:
+
+a) preencha por leitura os valores do primeiro campo (o vetor);
+b) imprima os valores contidos nesse campo;
+c) some os valores contidos no primeiro campo e preencha o segundo campo com o 
+resultado da soma;
+d) imprima o valor contido no segundo campo. */
+
 #include <stdio.h>
 #include <stdlib.h>
 
