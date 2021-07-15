@@ -1,3 +1,9 @@
+/*O programa a seguir apresenta uma resolucao para o seguinte exercicio:
+
+exercício 11.6 Utilizando o mesmo tipo de registro ponto do exercício an-
+terior, escreva um programa que leia as coordenadas de três pontos e in-
+forme se eles podem ser os vértices de um triângulo retângulo.*/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
