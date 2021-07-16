@@ -16,8 +16,7 @@ int i;
 struct registro{
         int vetor[3];
         int num_int;
-    };
-struct registro g_reg;
+    }g_reg;
 
 void leitura_dados();
 void imprimir_valores();

@@ -15,8 +15,8 @@ d) divisão da primeira fração pela segunda.*/
 #include <stdlib.h>
 
 struct frac{
-    float numerador;
-    float denominador;
+    int numerador;
+    int denominador;
 };
 struct frac leitura_fracao(struct frac fracao);
 double valor_fracoes(struct frac fracao);
@@ -48,6 +48,6 @@ struct frac leitura_fracao(struct frac fracao)
 }
 double valor_fracoes(struct frac fracao)
 {
-    double retorna = fracao.numerador / fracao.denominador;
+    double retorna = (float)fracao.numerador / (float)fracao.denominador;
     return (retorna);
 }
