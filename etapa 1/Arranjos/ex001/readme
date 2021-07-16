@@ -1,0 +1,6 @@
+O programa a seguir apresenta uma resolucao na linguagem C para o seguinte exercicio:
+
+exercício 12.5: Construa uma função lógica que informe se um determinado valor pertence
+ou não a um conjunto de valores inteiros. Os valores contidos no conjunto devem ser positi-
+vos, limitados ao valor 100. A função deve receber como parâmetros de entrada o conjunto
+já preenchido e o valor a ser buscado.
