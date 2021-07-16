@@ -57,5 +57,5 @@ void soma_vetor_nums()
 
 void imprimir_soma()
 {
-    printf("\n\nO valor da soma dos elementos eh %d", g_reg.num_int);
+    printf("\n\nO valor da soma dos elementos eh %d\n", g_reg.num_int);
 }
