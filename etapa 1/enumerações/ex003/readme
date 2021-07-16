@@ -1,0 +1,11 @@
+O programa a seguir apresenta uma resolucao em linguagem C para o seguinte exercicio:
+
+exercício 8.3: Ainda utilizando o tipo Nrs definido no Exercício 8.1, defina uma matriz mat
+com elementos do tipo caractere. A matriz deve ter 4 linhas indexadas pelos valores inteiros
+de 1 a 4, e 5 colunas indexadas pelos valores do tipo Nrs. Construa um programa que:
+
+a. preencha a matriz mat por leitura a partir do teclado;
+b. imprima os valores contidos na matriz, na forma linhas × colunas;
+c. percorra a matriz mat, contando o número de vogais nela contidos;
+d. informe qual a vogal de maior ocorrência dentro da matriz.
+

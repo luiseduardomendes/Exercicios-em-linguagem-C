@@ -1,21 +1,3 @@
-/*O programa a seguir apresenta uma resolucao para o seguinte exercicio:
-
-exercício 8.5 Uma revenda de automóveis armazena os dados relativos aos carros disponíveis 
-para venda em uma matriz multidimensional. As dimensões dessa matriz e os índices utiliza-
-dos em cada dimensão são:
-
- 1. código de identificação do carro, com índice inteiro, de 1 a 50;
- 2. modelo do carro, com índice tipo enumeração (modA, modB, modC, modD, modE);
- 3. cor, índice tipo enumeração (branco, prata, vermelho, azul, verde, preto);
- 4. ano de fabricação, índice tipo inteiro (2009, 2010, 2011);
- 5. combustível, índice tipo enumeração (gasolina, álcool, flex).
- 
-O conteúdo da matriz é o preço de cada um dos automóveis identificado pelos itens que 
-constituem as dimensões. Escreva um programa que inicie preenchendo, a partir de leituras 
-do teclado, todos os dados dessa matriz. Em seguida, o programa deve responder a uma série 
-de consultas, lendo os dados que identificam cada automóvel e informando o seu preço. Crie 
-um controle para identificar quando o programa deve terminar de responder a consultas. */
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>

@@ -1,0 +1,9 @@
+O programa a seguir apresenta uma resolucao em linguagem C para o seguinte exercicio:
+
+exercício 8.2: Defina dois vetores v1 e v2, cada um com 5 elementos inteiros, sendo os elementos de ambos indexados
+pelo tipo Nrs, cujos valores são (UM, DOIS, TRES, QUATRO, CINCO). Construa um programa que:
+
+a. preencha o vetor v1 por leitura;
+b. copie os elementos de v1 para v2;
+c. imprima os conteúdos de v1 e de v2;
+d. leia um valor e percorra v2, procurando o valor lido – se encontrar, informe em que posição de v2 o valor foi encontrado.

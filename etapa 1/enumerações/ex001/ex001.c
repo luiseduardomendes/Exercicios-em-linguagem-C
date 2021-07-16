@@ -1,12 +1,3 @@
-/*O programa a seguir apresenta uma resolucao para o seguinte exercicio:
-
-exercício 8.1 Defina o tipo enumeração Nrs, cujos valores são (UM, DOIS, TRES, QUATRO, 
-CINCO). Defina uma variável simples com esse tipo. Construa um programa que preencha 
-essa variável com um dos valores permitidos, a partir de informação fornecida por leitura. 
-Em seguida, o programa deve imprimir o conteúdo da variável, testando seu valor interno. 
-Teste esse programa fornecendo todas as possíveis opções de preenchimento da variável com 
-tipo Nrs.*/
-
 #include <stdio.h>
 #include <stdlib.h>
 
