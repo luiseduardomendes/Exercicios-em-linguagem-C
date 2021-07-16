@@ -1,0 +1,8 @@
+O programa a seguir apresenta uma resolucao em linguagem C para o seguinte exercicio:
+
+exercício 10.3: Dado um texto, faça um programa que isole cada palavra deste texto e 
+verifique se é um palíndromo, conforme mostrado no Exercício 10.3, na Seção 10.3. As 
+palavras são separadas por caracteres de espaço em branco, ou pelos símbolos “,”, “.”, 
+“!”, “:” e “;”. A saída do programa deve ser cada uma das palavras identificadas, 
+seguida por uma mensagemindicando se a palavra é ou não um palíndromo. 
+
