@@ -1,0 +1,8 @@
+O programa a seguir apresenta uma resolucao em linguagem C para o seguinte exercicio:
+
+exercício 9.7: Escreva um programa que, dado o raio de uma esfera, calcule o seu volume. 
+O programa deverá realizar um laço de leitura de valores para raio, fornecendo para cada 
+um o volume da esfera correspondente. O final do programa será sinalizado pela introdução 
+de um valor negativo ou nulo para o raio. O cálculo dos volumes deverá ser realizado por 
+uma função. Observação: essa função deverá utilizar uma função POTENCIA para calcular a 
+potência do raio necessária no cálculo do volume. 

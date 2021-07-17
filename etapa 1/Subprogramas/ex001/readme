@@ -1,0 +1,8 @@
+O programa a seguir apresenta uma resolucao em linguagem C para o seguinte exercicio:
+
+exercício 9.2: Faça um programa que leia quatro matrizes inteiras, 5 × 5 (A, B, C e D), com
+pelo menos dois subprogramas: um que carrega valores em uma matriz, a ser usado para a
+leitura das quatro matrizes, e um segundo que recebe duas matrizes 5 × 5 e calcula a matriz
+soma. Aplique esse último subprograma para obter A + B, C + D e A + C.
+
+

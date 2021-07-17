@@ -1,0 +1,13 @@
+O programa a seguir apresenta uma resolucao para o seguinte exercicio:
+
+exercício 11.4: Defina um tipo registro composto por dois campos inteiros: nu-
+merador e denominador. Esse registro será utilizado para representar uma fra-
+ção. Escreva um programa que preencha por leitura os dados relativos a duas
+frações (variáveis declaradas com o tipo antes definido). Em seguida, por meio 
+de funções, informe:
+
+a. soma das duas frações fornecidas;
+b. primeira fração menos a segunda;
+c. multiplicação das duas frações;
+d. divisão da primeira fração pela segunda.
+
