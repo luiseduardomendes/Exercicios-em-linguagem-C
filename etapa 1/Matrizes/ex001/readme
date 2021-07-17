@@ -1,0 +1,13 @@
+O programa a seguir apresenta uma resolucao em linguagem C para o seguinte exercicio:
+
+exercício 7.1: Dada uma matriz M(10, 20), escreva um programa que realize a seguinte 
+sequência de operações:
+
+a. preencha a matriz por leitura;
+b. imprima seus valores na forma de uma matriz;
+c. procure e imprima o maior elemento de cada linha da matriz;
+d. calcule e imprima a média dos elementos de cada coluna;
+e. calcule e imprima o produto de todos os elementos diferentes de zero;
+f. conte e imprima quantos elementos são negativos;
+g. informe qual a posição ocupada (linha-coluna) por um determinado elemento cujo valor 
+será lido pelo programa.
