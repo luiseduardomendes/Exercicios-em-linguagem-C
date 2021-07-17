@@ -1,0 +1,8 @@
+O programa a seguir apresenta uma resolucao em linguagem C para o seguinte exercicio:
+
+exercício 12.6: Escreva um programa que implemente o algoritmo a seguir, obedecendo a
+ordem de passos descrita:
+a construa um conjunto E de valores inteiros, a partir de 10 valores lidos do teclado. Os
+valores lidos devem estar entre os limites 0 e 20;
+b verifique se os próximos quatro valores lidos do teclado pertencem ao conjunto E.
+No segundo passo, poderá ser utilizada a função construída no exercício anterior.
