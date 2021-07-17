@@ -1,0 +1,5 @@
+O programa a seguir apresenta uma resolucao em linguagem C para o seguinte exercicio:
+
+exercício 7.4: Na Teoria de Sistemas, define-se como elemento minimax de uma matriz o 
+menor elemento da linha em que se encontra o maior elemento da matriz. Escreva um pro-
+grama que preencha uma matriz M(15,15) por leitura e determine o seu elemento minimax.
