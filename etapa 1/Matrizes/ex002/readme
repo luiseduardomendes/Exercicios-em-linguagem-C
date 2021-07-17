@@ -1,0 +1,6 @@
+O programa a seguir apresenta uma resolucao em linguagem C para o seguinte exercicio:
+
+exercício 7.3: Preencha por leitura uma matriz M(10,10). Em seguida, forme um vetor com 
+os elementos das linhas pares da matriz. Depois forme outro vetor com os elementos da 
+diagonal principal, somados com os elementos da mesma linha, contidos na diagonal secun-
+dária. Imprima a matriz e os dois vetores.
