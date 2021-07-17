@@ -1,0 +1,11 @@
+O programa a seguir apresenta uma resolucao em linguagem C para o seguinte exercicio:
+
+exercício 6.9 Faça um programa que calcule uma média móvel. O programa deverá executar 
+um laço de leitura de valores inteiros e positivos. A introdução de valores negativos 
+servirá como indicador de término do programa. Para cada valor fornecido, deverá ser 
+impressa a média calculada. A média móvel é calculada sobre um número especificado de 
+pontos. Quando se introduz um novo dado, o valor mais antigo é descartado, e o novo 
+valor introduzido é incorporado ao cálculo da média. Esse esquema de substituição faz 
+da média móvel um instrumento valioso na análise de tendências. Considerar para a 
+solução deste problema 5 pontos (valores) e iniciar o cálculo das médias ao completar 
+a quinta leitura.

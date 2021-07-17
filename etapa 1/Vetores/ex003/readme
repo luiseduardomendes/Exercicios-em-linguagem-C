@@ -1,0 +1,11 @@
+O programa a seguir apresenta uma resolucao em linguagem C para o seguinte exercicio:
+
+exercício 6.5: Escreva um programa que preencha um vetor inteiro vet(20) por leitura e, 
+em seguida, imprima os valores lidos. O programa deverá gerar, a partir do vetor vet, um 
+vetor pos apenas com os valores positivos maiores que zero. A partir do vetor pos, deverá 
+ser gerado ainda outro vetor, semdup, em que haja apenas uma ocorrência de cada valor 
+existente no vetor pos. Tanto o vetor pos, quanto o vetor semdup, devem ser gerados de 
+modo contínuo, da primeira posição em diante, ou seja, eventuais posições não ocupadas 
+poderão existir apenas no final dos vetores. Ao final do processamento, apresentar os três 
+vetores. No caso dos vetores pos e semdup, apresentar apenas suas posições efetivamente 
+utilizadas.

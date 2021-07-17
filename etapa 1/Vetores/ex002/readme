@@ -1,0 +1,8 @@
+O programa a seguir apresenta uma resolucao em linguagem C para o seguinte exercicio:
+
+exercício 6.4: Faça um programa que leia os conteúdos de dois vetores inteiros x(10) e y(10) 
+e os imprima. O programa deverá, a seguir:
+
+■ preencher outro vetor u, de forma que esse seja a união de x com y;
+■ preencher outro vetor i, de forma que ele seja a intersecção de x e y;
+■ imprimir os dois vetores u e i
