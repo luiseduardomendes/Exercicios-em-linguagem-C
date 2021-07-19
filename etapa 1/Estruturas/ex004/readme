@@ -1,0 +1,16 @@
+exercício 11.10: Considere um registro cuja representação gráfica é dada a seguir:
+        CODIGO: 
+        SALARIO:
+        IDADE:
+        SEXO:
+Os dados referentes aos funcionários de uma empresa estão armazenados em um vetor em 
+que cada elemento tem a forma de um registro como o representado anteriormente. Con-
+siderando que a empresa tem, no máximo, 100 funcionários, construa um programa que 
+execute as seguintes tarefas:
+
+a. preencha por leitura os dados de um conjunto de funcionários;
+b. imprima os dados de um determinado funcionário, identificado pelo seu código;
+c. aumente o salário de um funcionário em 10%, identificando o funcionário pelo seu código;
+d. informe o número de funcionários homens e o de mulheres;
+e. informe a idade média dos funcionários;
+f. imprima os nomes, as idades e os salários de todas as funcionárias mulheres.
