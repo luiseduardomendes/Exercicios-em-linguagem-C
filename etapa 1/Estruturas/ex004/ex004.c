@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
-#define num_func 2
+#define num_func 5
 
 struct registro{
         int codigo;
@@ -26,12 +26,6 @@ int main()
         vetor[i].idade = 0;
         vetor[i].salario = 0;
         vetor[i].sexo = 'P';
-    }
-    for (i = 0; i < num_func; i ++){
-        printf("\nCodigo:...:%d", vetor[i].codigo);
-        printf("\nSalario:..:%.2f", vetor[i].salario);
-        printf("\nIdade:....:%d", vetor[i].idade);
-        printf("\nSexo:.....:%c\n", vetor[i].sexo);
     }
     for (i = 0; i < num_func; i ++){
         printf("insira os dados de um funcionario: \n");
@@ -71,8 +65,8 @@ int main()
         scanf("%s", &resposta);
     }while(resposta == 'S');
     num_mulheres(vetor);
-    printf("A media de idade na empresa eh %.2f anos\n", idade_media(vetor));
-    printf("Mulheres na empresa:\n");
+    printf("\nA media de idade na empresa eh %.2f anos\n", idade_media(vetor));
+    printf("\nMulheres na empresa:\n");
     idade_salario_mulheres(vetor);
 }
 int aumenta_salario(float salario)
@@ -82,7 +76,7 @@ int aumenta_salario(float salario)
 }
 void num_mulheres(struct registro vetor[num_func])
 {
-    int i, mulheres;
+    int i, mulheres = 0;
     for(i = 0; i < num_func; i ++){
         if (vetor[i].sexo == 'F'){
             mulheres ++;
@@ -92,7 +86,7 @@ void num_mulheres(struct registro vetor[num_func])
 }
 float idade_media(struct registro vetor[num_func])
 {
-    int i, num;
+    int i, num = 0;
     float soma = 0, media;
     for (i = 0; i < num_func; i ++){
         if (vetor[i].idade != 0){
@@ -100,7 +94,6 @@ float idade_media(struct registro vetor[num_func])
             num ++;
         }
     }
-    printf("Num = %d", num);
     media = soma / num;
     return media;
 }
@@ -109,7 +102,7 @@ void idade_salario_mulheres(struct registro vetor[num_func])
     int i;
     for (i = 0; i < num_func; i++){
         if (vetor[i].sexo == 'F'){
-            printf("\nCodigo: %d, Salario: R$%.2f\n");
+            printf("\nCodigo: %d, Salario: R$%.2f\n", vetor[i].codigo, vetor[i].salario);
         }
     }
 }
