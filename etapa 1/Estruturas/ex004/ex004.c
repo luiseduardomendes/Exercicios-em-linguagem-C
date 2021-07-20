@@ -1,7 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
-#define num_func 5
+#include <ctype.h>
+#define num_func 10
 
 struct registro{
         int codigo;
@@ -10,7 +11,6 @@ struct registro{
         char sexo;
 };
 
-int aumenta_salario(float salario);
 void num_mulheres(struct registro vetor[num_func]);
 float idade_media(struct registro vetor[num_func]);
 void idade_salario_mulheres(struct registro vetor[num_func]);
@@ -35,8 +35,14 @@ int main()
         scanf("%f", &vetor[i].salario);
         printf("Idade: ");
         scanf("%d", &vetor[i].idade);
-        printf("Sexo [M, F, O (outro)]: ");
-        scanf("%s", &vetor[i].sexo);
+        do{
+            printf("Sexo [M, F, O (outro)]: ");
+            scanf("%s", &vetor[i].sexo);
+            vetor[i].sexo = toupper(vetor[i].sexo);
+            if ((vetor[i].sexo != 'M') && (vetor[i].sexo != 'F') && (vetor[i].sexo != 'O')){
+                printf("Insira um valor valido\n");
+            }
+        } while ((vetor[i].sexo != 'M') && (vetor[i].sexo != 'F') && (vetor[i].sexo != 'O'));
     }
     do{
         encontrado = false;
@@ -56,23 +62,32 @@ int main()
             printf("Codigo nao encontrado.\n");
         }
         else{
-            printf("Deseja aumentar o salario desse funcionario em 10%%? [S/N]\n");
-            scanf("%s", &aumento);
-            if (aumento == 'S')
-                vetor[i].salario = aumenta_salario(vetor[i].salario);
+            do{
+                printf("Deseja aumentar o salario desse funcionario em 10%%? [S/N]\n");
+                scanf("%s", &aumento);
+                aumento = toupper(aumento);
+                if (aumento == 'S'){
+                    vetor[vet_func].salario *= 1.1;
+                    printf("novo salario: %.2f\n", vetor[vet_func].salario);
+                }
+                if ((aumento != 'S') && (aumento != 'N')){
+                    printf("Insira um valor valido\n");
+                }
+            }while((aumento != 'S') && (aumento != 'N'));
         }
-        printf("Deseja realizar outra busca? [S/N]\n");
-        scanf("%s", &resposta);
+        do{
+            printf("Deseja realizar outra busca? [S/N]\n");
+            scanf("%s", &resposta);
+            resposta = toupper(resposta);
+            if((resposta != 'S') && (resposta != 'N')){
+                printf("Insira um valor valido\n");
+            }
+        }while ((resposta != 'S') && (resposta != 'N'));
     }while(resposta == 'S');
     num_mulheres(vetor);
     printf("\nA media de idade na empresa eh %.2f anos\n", idade_media(vetor));
     printf("\nMulheres na empresa:\n");
     idade_salario_mulheres(vetor);
-}
-int aumenta_salario(float salario)
-{
-    salario *= 1.1;
-    return salario;
 }
 void num_mulheres(struct registro vetor[num_func])
 {
