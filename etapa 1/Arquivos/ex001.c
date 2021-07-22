@@ -6,13 +6,10 @@ FILE* arquivo;
 
 int main()
 {
-
     char linha[51], nome[51], letra;
 
-
     arquivo = fopen("dados.dat", "rb+");
-    printf("Novo arquivo criado\n");
-
+    printf("Arquivo encontrado...\n\n");
 
     printf("Insira uma frase:\n");
     fgets(nome, sizeof(nome), stdin);
@@ -31,9 +28,12 @@ int main()
     rewind(arquivo);
     while (feof(arquivo) == 0){
         fgets(linha, 51, arquivo);
-        printf("%s", linha);
+        if (feof(arquivo))
+            break;
+        else
+            printf("%s", linha);
     }
-
+    
     fclose(arquivo);
     return 0;
 }
