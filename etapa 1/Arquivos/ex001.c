@@ -7,58 +7,32 @@ FILE* arquivo;
 int main()
 {
 
-    char linha[51], nome[51];
-    char* pnome = nome;
-    if (fopen("dados.dat", "rb+") == NULL){
-        arquivo = fopen("dados.dat", "wb+");
-        printf("Arquivo nao encontrado, novo arquivo criado\n");
-    }
-    else{
-        arquivo = fopen("dados.dat", "rb+");
-        printf("Arquivo encontrado, continuando execucao...\n");
-    }
+    char linha[51], nome[51], letra;
+
+
+    arquivo = fopen("dados.dat", "rb+");
+    printf("Novo arquivo criado\n");
+
 
     printf("Insira uma frase:\n");
-    fgets(nome, strlen(nome), stdin);
-    if(ferror(arquivo)){
-        printf("Erro\n");
-    }
-
-    /*do{
-        if(fread(&nome, sizeof(nome), 1, arquivo) == 1){
-            fgets(linha, 0, arquivo);
-        }
-    } while (feof(arquivo) == 0);*/
-
-    fputs(nome, arquivo);
-    if(ferror(arquivo)){
-        printf("Erro\n");
-    }
-    else{
-        printf("Sem erro\n");
-    }
-
-    fclose(arquivo);
-
-    fopen("dados.dat", "rb+");
+    fgets(nome, sizeof(nome), stdin);
+    printf("\n\n");
 
     do{
-        if(fread(&nome, sizeof(nome), 1, arquivo) == 1){
-            fgets(linha, 50, arquivo);
-            if(ferror(arquivo)){
-                printf("Erro\n");
-            }
-            else{
-                printf("Sem erro\n");
-            }
-            printf("\n%s", linha);
-
-
-        }
+        letra = fgetc(arquivo);
+        if (letra = '\0')
+            fputc ('\n', arquivo);
     } while (feof(arquivo) == 0);
 
-
-
+    fputs(nome, arquivo);
+    if (ferror(arquivo)){
+        printf("Erro ao inserir\n");
+    }
+    rewind(arquivo);
+    while (feof(arquivo) == 0){
+        fgets(linha, 51, arquivo);
+        printf("%s", linha);
+    }
 
     fclose(arquivo);
     return 0;
