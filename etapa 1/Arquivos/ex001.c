@@ -9,12 +9,6 @@ int main()
 
     char linha[51], nome[51];
     char* pnome = nome;
-
-
-    //strcpy(linha, "qualquer texto aleatorio\n");
-
-    //printf("%s\n", linha);
-
     if (fopen("dados.dat", "rb+") == NULL){
         arquivo = fopen("dados.dat", "wb+");
         printf("Arquivo nao encontrado, novo arquivo criado\n");
@@ -24,48 +18,48 @@ int main()
         printf("Arquivo encontrado, continuando execucao...\n");
     }
 
-
-
-
-    /*if (feof(arquivo) == 0){
-        printf("Final do arquivo nao atingido\n");
+    printf("Insira uma frase:\n");
+    fgets(nome, strlen(nome), stdin);
+    if(ferror(arquivo)){
+        printf("Erro\n");
     }
-    else{
-        printf("Final do arquivo atingido\n");
-    }*/
 
-    fgets(nome, sizeof(nome), stdin); //funcao scanf
-    if (nome[strlen(nome) - 1] == '\n'){
-        nome[strlen(nome) - 1] = '\0';
-    }
-    while (feof(arquivo) == 0)
-        fgets(linha, 51, arquivo);
+    /*do{
+        if(fread(&nome, sizeof(nome), 1, arquivo) == 1){
+            fgets(linha, 0, arquivo);
+        }
+    } while (feof(arquivo) == 0);*/
+
     fputs(nome, arquivo);
-    printf("%s\n", nome);
-
-
-    if (fclose(arquivo) == EOF){
-        printf("Erro no encerramento do programa");
+    if(ferror(arquivo)){
+        printf("Erro\n");
     }
     else{
-        fclose(arquivo);
-    }
-
-    if (fopen("dados.dat", "rb+") == NULL){
-        arquivo = fopen("dados.dat", "wb+");
-        printf("Arquivo nao encontrado, novo arquivo criado\n");
-    }
-    else{
-        arquivo = fopen("dados.dat", "rb+");
-        printf("Arquivo encontrado, continuando execucao...\n");
-    }
-
-    while (feof(arquivo) == 0){
-        fgets(linha, 51, arquivo);
-        printf("%s", linha);
-
+        printf("Sem erro\n");
     }
 
     fclose(arquivo);
 
+    fopen("dados.dat", "rb+");
+
+    do{
+        if(fread(&nome, sizeof(nome), 1, arquivo) == 1){
+            fgets(linha, 50, arquivo);
+            if(ferror(arquivo)){
+                printf("Erro\n");
+            }
+            else{
+                printf("Sem erro\n");
+            }
+            printf("\n%s", linha);
+
+
+        }
+    } while (feof(arquivo) == 0);
+
+
+
+
+    fclose(arquivo);
+    return 0;
 }
