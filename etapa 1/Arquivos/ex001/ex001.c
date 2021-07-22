@@ -13,7 +13,6 @@ int main()
 
     printf("Insira uma frase:\n");
     fgets(nome, sizeof(nome), stdin);
-    printf("\n\n");
 
     do{
         letra = fgetc(arquivo);
@@ -25,7 +24,17 @@ int main()
     if (ferror(arquivo)){
         printf("Erro ao inserir\n");
     }
+    for (int i = 0; i < 9; i ++){
+        printf("Insira uma frase:\n");
+        fgets(nome, sizeof(nome), stdin);
+        fputs(nome, arquivo);
+        if (ferror(arquivo)){
+            printf("Erro ao inserir\n");
+        }
+    }
+
     rewind(arquivo);
+    printf("\nTextos digitados e armazenados:\n\n");
     while (feof(arquivo) == 0){
         fgets(linha, 51, arquivo);
         if (feof(arquivo))
@@ -33,7 +42,7 @@ int main()
         else
             printf("%s", linha);
     }
-    
+
     fclose(arquivo);
     return 0;
 }
