@@ -1,0 +1,4 @@
+exercício 13.6: Considerando um arquivo de texto já gravado, gere a partir dele um novo 
+arquivo com uma nova linha inserida entre a terceira e a quarta linhas do arquivo original. O 
+texto da nova linha deverá ser fornecido via teclado. Liste o arquivo original e o novo arquivo 
+criado
