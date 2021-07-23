@@ -27,6 +27,8 @@ int main()
 
     fclose(arquivo);
     fclose(arq_novo);
+    remove("E:\\teste C\\ex052.txt");
+    rename("E:\\teste C\\ex052.aux.txt", "E:\\teste C\\ex052.txt");
 
     return 0;
 }
