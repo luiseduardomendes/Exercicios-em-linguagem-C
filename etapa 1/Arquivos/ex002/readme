@@ -1,3 +1,5 @@
+O programa a seguir apresenta uma resolução em Linguagem C para o seguinte exercício:
+
 exercício 13.2 Usando o arquivo de texto produzido no exercício anterior, faça um programa 
 que leia esse arquivo e realize as seguintes tarefas (cada tarefa deverá ser executada por 
 uma função):

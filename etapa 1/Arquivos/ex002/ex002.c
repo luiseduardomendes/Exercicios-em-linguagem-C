@@ -6,36 +6,21 @@ FILE* arquivo;
 
 int main()
 {
-    char  nome[51];
-
-    arquivo = fopen("texto_ex051.txt", "rb+");
-    if (arquivo == NULL){
-        printf("Arquivo nao encontrado\nNovo arquivo criado\n");
+    char linha[101];
+    if (fopen("texto_ex051.txt", "w") != NULL){
+        printf("Arquivo encontrado...\n\n");
+        arquivo = fopen("texto_ex051.txt", "w");
+    }
+    else{
+        printf("Arquivo nao encontrado, criando novo...\n\n");
         arquivo = fopen("texto_ex051.txt", "wb+");
     }
-    else
-        printf("Arquivo encontrado...\n\n");
-
-    fputs("Insira uma frase:\n", stdout);
-    fgets(nome, 51, stdin);
-
-    //while(strcmp(nome, "0") != 0){
-        fputs(nome, arquivo);
-        fputs("Insira outra frase:\n", stdout);
-        fgets(nome, 51, stdin);
-    //}
-
-    fclose(arquivo);
-
-    arquivo = fopen("texto_ex051.txt", "rb");
-
-
-    printf("\nTextos digitados e armazenados:\n\n");
-
-    while (fgets(nome, 51, arquivo) != NULL){
-        fgets(nome, 51, arquivo);
-        printf("%s", nome);
-        printf("Hello world\n");
+    fputs("Digite um texto: \n", stdout);
+    fgets(linha, 101, stdin);
+    while (linha[0] != '0'){
+        fputs(linha, arquivo);
+        printf("Digite outro texto: \n");
+        fgets(linha, 101, stdin);
     }
 
     fclose(arquivo);
