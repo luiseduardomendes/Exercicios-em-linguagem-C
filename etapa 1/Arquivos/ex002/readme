@@ -1,0 +1,8 @@
+exercício 13.2 Usando o arquivo de texto produzido no exercício anterior, faça um programa 
+que leia esse arquivo e realize as seguintes tarefas (cada tarefa deverá ser executada por 
+uma função):
+ 
+a. listar a primeira palavra de cada linha par do arquivo; 
+b. listar a última palavra de cada linha do arquivo. Cada conjunto de palavras deverá estar 
+precedido por um cabeçalho adequado. Lembre que uma linha pode ter de uma a várias palavras. 
+Apresente, ao final do processamento, o número de linhas lidas do arquivo
