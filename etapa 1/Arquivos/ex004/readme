@@ -1,0 +1,5 @@
+exercício 13.11: Faça um programa que decodifique um determinado texto gravado em um
+arquivo a partir da seguinte tabela de substituição de caracteres:
+
+Caractere existente .......... A E I O U V W X Y Z
+Caractere a ser substituído .. Z Y X W V U O I E A
