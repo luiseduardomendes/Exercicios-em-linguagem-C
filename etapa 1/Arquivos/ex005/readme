@@ -1,0 +1,6 @@
+exercício 13.14: Copie o arquivo sequencial fonte.dad para um arquivo sequencial chamado 
+fontenova.dad. Os registros do primeiro arquivo têm três campos: chave – numérico 
+(inteiro), informação – string (30 caracteres) e data – string, no formato ddmmaaaa. Os 
+registros do segundo arquivo têm esses mesmos campos mais um quarto campo chamado 
+de valor – numérico (real). Os valores para preencher esse novo campo devem ser lidos do 
+teclado durante o processo de criação do novo arquivo.
