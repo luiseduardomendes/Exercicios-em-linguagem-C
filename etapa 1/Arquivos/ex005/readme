@@ -1,3 +1,5 @@
+O programa a seguir apresenta uma resolução em Linguagem C para o seguinte exercício:
+
 exercício 13.14: Copie o arquivo sequencial fonte.dad para um arquivo sequencial chamado 
 fontenova.dad. Os registros do primeiro arquivo têm três campos: chave – numérico 
 (inteiro), informação – string (30 caracteres) e data – string, no formato ddmmaaaa. Os 
