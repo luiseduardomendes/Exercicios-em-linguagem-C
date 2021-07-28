@@ -1,0 +1,17 @@
+O programa a seguir apresenta uma resolucao em linguagem C para o seguinte exercicio:
+
+exercício 13.18: Escreva os programas a seguir, que propõem realizar o controle de bolsistas
+de uma instituição.
+
+a. Gere, de forma sequencial, o arquivo binário bolsista1.cad, com no mínimo 5 registros.
+Cada bolsista terá seus dados armazenados em uma estrutura com os seguintes
+campos: codigo (inteiro entre 1 e 25); nome (string de 30 caracteres); tipo_bolsa
+(inteiro, com os valores válidos: 1 – trabalho; 2 – iniciacao; 3 – pesquisa); e e_mail
+(string de 30 caracteres). Realize a verificação de validade nos campos codigo e tipo_
+bolsa e só aceite valores corretos. Atenção: não aceite códigos duplicados.
+
+b. Liste, sequencialmente, o arquivo “bolsista1.cad”.
+
+c. Acrescente, de forma sequencial, dados de novos bolsistas ao final do arquivo
+bolsista1.cad até que o usuário indique que deseja parar. Atenção: não aceite códigos
+duplicados, considerando inclusive os códigos fornecidos no item a).
