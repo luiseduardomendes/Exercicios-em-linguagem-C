@@ -10,108 +10,50 @@ void cadastra_bolsista();
 int menu();
 int menu_bolsa();
 void lista_cad();
+void altera_dados();
 
 struct registro{
     int codigo;
     char nome[31];
     int bolsa;
     char email[51];
-}buffer, teste;
+}buffer, leitura[25];
 
-int i;
+int j;
 
 int main()
 {
-    int j;
     int opc;
-
     do{
+
         opc = menu();
         switch (opc){
         case 1 :
-            arquivo = fopen("E:\\teste C\\bolsistas.cad", "wb");
-            cadastra_bolsista();
-            printf("Primeiro aluno cadastrado\n");
-            for (j = 0; j < 4; j ++){
-                arquivo = fopen("E:\\teste C\\bolsistas.cad", "ab");
+            arquivo = fopen("bolsistas.cad", "wb");
+            fclose(arquivo);
+            for (j = 0; j < 5; j ++){
                 cadastra_bolsista();
-                printf("Encerrado\n");
             }
             break;
         case 2 :
             lista_cad();
+            break;
         case 3 :
-            arquivo = fopen("E:\\teste C\\bolsistas.cad", "ab");
+            arquivo = fopen("bolsistas.cad", "ab");
             cadastra_bolsista();
-            i++;
+            break;
+        case 4 :
+            altera_dados();
+            break;
+        case 5 :
+            printf("Programa encerrado\n");
             break;
         }
-    } while (opc != 4);
+        fflush(stdin);
+    } while (opc != 5);
     return 0;
 }
 
-void cadastra_bolsista()
-{
-    int cod;
-    char email[51], nome[31];
-    char att;
-    bool repetido = false, repete = false;
-
-
-    do{
-        printf("insira o codigo do bolsista: ");
-        do{
-
-            scanf("%d", &cod);
-            fflush(stdin);
-            arquivo_teste = fopen("E:\\teste C\\bolsistas.cad", "rb");
-            while (!(feof(arquivo_teste))){
-                fread(&teste, sizeof(struct registro), 1, arquivo_teste);
-                fflush(arquivo_teste);
-                if (teste.codigo == cod){
-                    printf("codigo ja inserido\ndeseja atualiza-lo? [S/N]: ");
-                    scanf("%c", &att);
-                    fflush(stdin);
-                    att = toupper(att);
-                    repetido = true;
-                    break;
-                }
-            }
-            fclose(arquivo_teste);
-
-            if (((cod <= 25) && (cod >= 1)) && ((!repetido) || ((repetido) && (att == 'S'))))
-                buffer.codigo = cod;
-            else{
-                if (!((cod <= 25) && (cod >= 1)))
-                    printf("Codigo invalido\ninsira outro: ");
-                else
-                    break;
-            }
-        } while(!((cod <= 25) && (cod >= 1)));
-        if ((!repetido) || ((repetido) && (att == 'S'))){
-            printf("Insira o nome do bolsista: ");
-            fflush(stdin);
-            gets(nome);
-            strcpy(buffer.nome, nome);
-
-            printf("Insira o tipo de bolsa do aluno: \n");
-            buffer.bolsa = menu_bolsa();
-            fflush(stdin);
-
-            printf("Insira o email do bolsista: ");
-            gets(buffer.email);
-            fflush(stdin);
-
-            fwrite(&buffer, sizeof(struct registro), 1, arquivo);
-
-            fclose(arquivo);
-        }
-        else{
-            repete = true;
-            repetido = false;
-        }
-    }while(repete);
-}
 int menu_bolsa()
 {
     int bolsa;
@@ -132,22 +74,25 @@ int menu()
     int opc;
     do{
 
-        printf("O que deseja fazer?\n");
+        printf("O que deseja fazer?\n\n");
         printf("[1] Cadastrar os primeiros 5 bolsistas\n");
         printf("[2] Listar os bolsistas\n");
         printf("[3] Cadastrar novos bolsistas\n");
-        printf("[4] Sair\n");
-        printf("Sua opcao: ");
+        printf("[4] Alterar dados de um bolsista\n");
+        printf("[5] Sair\n");
+        printf("\nSua opcao: ");
         scanf("%d", &opc);
-        if ((opc < 1) || (opc > 4))
+        if ((opc < 1) || (opc > 5))
             printf("Numero invalido\n");
-    } while ((opc < 1) || (opc > 4));
+    } while ((opc < 1) || (opc > 5));
 }
 void lista_cad()
 {
-    arquivo = fopen("E:\\teste C\\bolsistas.cad", "rb");
+    arquivo = fopen("bolsistas.cad", "rb");
     while (1){
         fread(&buffer, sizeof(struct registro), 1, arquivo);
+        if (feof(arquivo))
+            break;
         printf("Codigo: %d\nNome: %s\n", buffer.codigo, buffer.nome);
         switch (buffer.bolsa){
             case 1 :
@@ -160,10 +105,113 @@ void lista_cad()
                 printf("Bolsa: Pesquisa\n");
                 break;
         }
-        printf("Email: %s\n", buffer.email);
-        if (feof(arquivo))
-            break;
+        printf("Email: %s\n\n", buffer.email);
     }
     fclose(arquivo);
 }
 
+void cadastra_bolsista()
+{
+    int cod, total_lido;
+    char resp, nome[31];
+    bool repetido;
+
+    do{
+        repetido = false;
+        do{
+            printf("Insira o codigo do bolsista: ");
+            fflush(stdin);
+            scanf("%d", &cod);
+            if ((cod < 1) || (cod > 25))
+                printf("Codigo invalido\nInsira um codigo entre 1 e 25\n");
+        } while ((cod < 1) || (cod > 25));
+        arquivo_teste = fopen("bolsistas.cad", "rb");
+        do{
+            fread(&buffer, sizeof(struct registro), 1, arquivo_teste);
+            if (feof(arquivo_teste))
+                break;
+            if(cod == buffer.codigo){
+                repetido = true;
+                printf("Codigo inserido ja utilizado\n");
+                
+                break;
+            }
+        } while(!feof(arquivo_teste));
+        close(arquivo_teste);
+    } while(repetido);
+    buffer.codigo = cod;
+    printf("Insira o nome do bolsista: ");
+    fflush(stdin);
+    gets(nome);
+    strcpy(buffer.nome, nome);
+
+    printf("Insira o tipo de bolsa do aluno: \n");
+    buffer.bolsa = menu_bolsa();
+    fflush(stdin);
+
+    printf("Insira o email do bolsista: ");
+    gets(buffer.email);
+    fflush(stdin);
+
+    arquivo = fopen("bolsistas.cad", "ab");
+    fwrite(&buffer, sizeof(struct registro), 1, arquivo);
+
+    fclose(arquivo);
+}
+void altera_dados()
+{
+    int cod;
+    bool repete;
+    char nome[31];
+    do{
+        repete = false;
+        printf("Insira um codigo: \n");
+        scanf("%d", &cod);
+        arquivo = fopen("bolsistas.cad", "rb+");
+        while(true){
+            fread(&buffer, sizeof(struct registro), 1, arquivo);
+            if (feof(arquivo))
+                break;
+            if (buffer.codigo == cod){
+                repete = true;
+                break;
+            }
+        }
+        if (repete){
+            printf("Dados anteriores: \n");
+            printf("Codigo: %d\nNome: %s\n", buffer.codigo, buffer.nome);
+            switch (buffer.bolsa){
+                case 1 :
+                    printf("Bolsa: Trabalho\n");
+                    break;
+                case 2 :
+                    printf("Bolsa: Iniciacao\n");
+                    break;
+                case 3 :
+                    printf("Bolsa: Pesquisa\n");
+                    break;
+            }
+            printf("Email: %s\n\n", buffer.email);
+        }
+        else
+            printf("Codigo nao existente\n");
+
+    }while(!repete);
+    buffer.codigo = cod;
+    printf("Insira o nome do bolsista: ");
+    fflush(stdin);
+    gets(nome);
+    strcpy(buffer.nome, nome);
+
+    printf("Insira o tipo de bolsa do aluno: \n");
+    buffer.bolsa = menu_bolsa();
+    fflush(stdin);
+
+    printf("Insira o email do bolsista: ");
+    gets(buffer.email);
+    fflush(stdin);
+
+    fseek(arquivo, -1 * sizeof(struct registro), SEEK_CUR);
+    fwrite(&buffer, sizeof(struct registro), 1, arquivo);
+    fclose(arquivo);
+}
