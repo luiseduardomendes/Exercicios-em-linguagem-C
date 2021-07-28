@@ -1,0 +1,7 @@
+O programa a seguir apresenta uma resolucao em linguagem C para o seguinte exercicio: 
+
+exercício 13.19: A partir do arquivo bolsista1.cad (criado no exercício anterior), gere uma
+versão do mesmo para acesso direto, denominada “bolsista2.cad”, em que os dados de
+cada bolsista fiquem armazenados na posição de seu código subtraído de 1. A estrutura do
+arquivo bolsista2.cad deverá conter a mais os campos mês e ano de vencimento da bolsa.
+Esses campos deverão receber o valor zero.
