@@ -62,11 +62,14 @@ void organiza()
         rewind(arquivo);
         do{
             fread(&buffer, sizeof(struct registro), 1, arquivo);
-            if (i = buffer.cod){
+            if (feof(arquivo))
+                break;
+            if (i == buffer.cod){
+                fflush(stdin);
                 fwrite(&buffer, sizeof(struct registro), 1, arquivo_novo);
                 break;
             }
-        } while(!feof(arquivo));
+        } while(1);
     }
     fclose(arquivo);
     fclose(arquivo_novo);
