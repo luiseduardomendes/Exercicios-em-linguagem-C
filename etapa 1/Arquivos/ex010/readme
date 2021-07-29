@@ -1,0 +1,8 @@
+O programa a seguir apresenta uma resolucao em linguagem C para o seguinte exercicio: 
+
+exercício 13.22: O arquivo cadastro armazena informações relacionadas a clientes de 
+uma clínica. Para cada cliente, são armazenados, na forma de um registro do arquivo, os 
+seguintes dados: nome (28 caracteres), sexo (M ou F), altura (real), peso_inicial (real), 
+peso_atual (real) e data_de_nascimento (ddmmaa). A partir desse arquivo, gere outros 
+dois arquivos, um em que são armazenados os dados dos homens e o outro com os dados 
+das mulheres
