@@ -1,0 +1,20 @@
+O programa a seguir apresenta uma resolução em linguagem C para o seguinte exercicio: 
+
+exercício 13.20: Uma empresa de manutenção de ônibus e caminhões passou recentemente
+por graves problemas de pessoal. Após a renovação de boa parte da equipe que mantinha seu
+sistema computacional, foi verificado que o cadastro em disco, de organização sequencial,
+com informações sobre 1.000 peças de reposição com as quais a empresa trabalha, estava
+totalmente desordenado. Desenvolva um programa para ordenar as informações desse arquivo
+em ordem ascendente de código de peça e regravar o arquivo de forma randômica, com
+as informações de cada peça armazenadas na posição do seu código. A classificação deverá
+ser feita em um subprograma e a geração do arquivo em outro. Para a classificação, use o
+método da bolha, discutido no Capítulo 6. Os códigos das peças atualmente existentes variam
+entre 1 e 1.500.
+
+A estrutura dos registros do cadastro de peças é:
+
+■ código da peça (inteiro)
+■ nome da peça (40 caracteres)
+■ preço unitário (real)
+■ quantidade de peças em estoque (inteiro)
+■ código do fornecedor (inteiro)
