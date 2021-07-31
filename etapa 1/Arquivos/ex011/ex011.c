@@ -37,17 +37,6 @@ struct cadastro{
 
 int main()
 {
-    arq_cad = fopen("cadastros.cad", "ab");
-    for (int i = 1; i <= 500; i ++ ){
-        buffer.conta = i;
-        strcpy(buffer.nome, " ");
-        strcpy(buffer.senha, "admin");
-        fwrite(&buffer, sizeof(struct cadastro), 1, arq_cad);
-
-
-    }
-    fclose(arq_cad);
-
     int resp;
     do{
         resp = menu();
