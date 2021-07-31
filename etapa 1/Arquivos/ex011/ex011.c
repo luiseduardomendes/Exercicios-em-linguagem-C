@@ -199,7 +199,7 @@ void cadastrar()
             repetido = true;
             printf("Codigo inserido ja utilizado\n");
         }
-        close(arq_test);
+        fclose(arq_test);
     } while(repetido);
 
     buffer.conta = cod;
