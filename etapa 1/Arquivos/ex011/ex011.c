@@ -37,7 +37,26 @@ struct cadastro{
 
 int main()
 {
+    /*arq_cad = fopen("cadastros.cad", "ab");
+    rewind(arq_cad);
+    for (int i = 1; i <= 500; i ++ ){
+        buffer.conta = i;
+        strcpy(buffer.nome, " ");
+        strcpy(buffer.senha, "admin");
+        fwrite(&buffer, sizeof(struct cadastro), 1, arq_cad);
+    }
+    fclose(arq_cad);
+*/
     int resp;
+    arq_cad = fopen("cadastros.cad", "rb");
+    while (true){
+        fread(&buffer, sizeof(struct cadastro), 1, arq_cad);
+        printf("codigo: %d--Nome: %s\n", buffer.conta, buffer.nome);
+        if (feof(arq_cad)){
+            system("pause");
+            break;
+        }
+    }
     do{
         resp = menu();
     } while (resp != 0);
@@ -123,7 +142,7 @@ void login()
     int codigo;
     char senha[17];
     bool acesso;
-    arq_cad = fopen("cadastros.cad", "rb");
+
     printf("Insira o seu codigo para continuar: ");
 
     do{
@@ -135,13 +154,14 @@ void login()
                 printf("entre 1 e 500\nInsira outro: ");
             }
         } while ((codigo < 1) || (codigo > 500));
-
+        arq_cad = fopen("cadastros.cad", "rb");
         fseek(arq_cad, (codigo - 1)*sizeof(struct cadastro), SEEK_SET);
         fread(&buffer, sizeof(struct cadastro), 1, arq_cad);
         if (strcmp(buffer.nome, " ") == 0){
             printf("Conta nao encontrada\nInsira outra: ");
         }
     }while(strcmp(buffer.nome, " ") == 0);
+    fseek(arq_cad, (codigo - 1)*sizeof(struct cadastro), SEEK_SET);
     for(int i = 4; i >= 0; i --){
         acesso = false;
         printf("Insira a senha: ");
@@ -151,7 +171,7 @@ void login()
             printf("Senha invalida\n");
             printf("%d tentativas restantes\n", i);
         }
-        else{
+        if (strcmp(senha, buffer.senha) == 0){
             acesso = true;
             break;
         }
@@ -180,18 +200,21 @@ void cadastrar()
             if ((cod < 1) || (cod > 500))
                 printf("Codigo invalido\nInsira um codigo entre 1 e 500\n");
         } while ((cod < 1) || (cod > 500));
-        arq_test = fopen("cadastros.cad", "rb");
+        arq_cad = fopen("cadastros.cad", "rb");
         repetido = false;
-        fseek(arq_cad, (cod - 1)*sizeof(struct cadastro),SEEK_SET);
-        fread(&buffer, sizeof(struct cadastro), 1, arq_test);
-        if(strcmp(buffer.nome, " ") != 0){
+        rewind(arq_cad);
+        fseek(arq_cad, (cod - 1)*sizeof(struct cadastro), SEEK_SET);
+        fread(&buffer, sizeof(struct cadastro), 1, arq_cad);
+        if(strcmp(buffer.nome, " ") == 0){
+            repetido = false;
+        }
+        else{
             repetido = true;
             printf("Codigo inserido ja utilizado\n");
         }
-        fclose(arq_test);
+        fclose(arq_cad);
     } while(repetido);
 
-    buffer.conta = cod;
     printf("Insira o nome do titular da conta: ");
     fflush(stdin);
     gets(buffer.nome);
@@ -204,7 +227,7 @@ void cadastrar()
     gets(buffer.senha);
     fflush(stdin);
 
-    arq_cad = fopen("cadastros.cad", "wb");
+    arq_cad = fopen("cadastros.cad", "rb+");
     fseek(arq_cad, (cod - 1)*sizeof(struct cadastro), SEEK_SET);
     fwrite(&buffer, sizeof(struct cadastro), 1, arq_cad);
     fclose(arq_cad);
