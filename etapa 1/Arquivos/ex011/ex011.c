@@ -17,9 +17,13 @@ void op_deposito(int codigo);
 void op_movimento(int codigo);
 void op_todos_movimto(int codigo);
 void login();
+void login_func();
 void cadastrar();
 void atualiza();
 enum tipo menu_conta();
+void reseta();
+void mostrar_cadastros();
+void testar_backup();
 
 struct movimento{
     int data_mov[3];
@@ -37,26 +41,7 @@ struct cadastro{
 
 int main()
 {
-    /*arq_cad = fopen("cadastros.cad", "ab");
-    rewind(arq_cad);
-    for (int i = 1; i <= 500; i ++ ){
-        buffer.conta = i;
-        strcpy(buffer.nome, " ");
-        strcpy(buffer.senha, "admin");
-        fwrite(&buffer, sizeof(struct cadastro), 1, arq_cad);
-    }
-    fclose(arq_cad);
-*/
     int resp;
-    arq_cad = fopen("cadastros.cad", "rb");
-    while (true){
-        fread(&buffer, sizeof(struct cadastro), 1, arq_cad);
-        printf("codigo: %d--Nome: %s\n", buffer.conta, buffer.nome);
-        if (feof(arq_cad)){
-            system("pause");
-            break;
-        }
-    }
     do{
         resp = menu();
     } while (resp != 0);
@@ -81,7 +66,9 @@ int menu()
     switch (resp){
         case 1 : login();
         break;
-        case 2 : menu_funcionario();
+        case 2 : login_func();
+        break;
+        case 0 : printf("Programa encerrado\n");
         break;
     }
     return (resp);
@@ -91,10 +78,10 @@ int menu_cliente(int codigo)
 {
     int resp;
     system("cls");
-    printf("[1] Saque\n");
-    printf("[2] Deposito\n");
-    printf("[3] movimentacoes\n");
-    printf("[0] Sair\n");
+    printf("[1] Saque (INDISPONIVEL)\n");
+    printf("[2] Deposito (INDISPONIVEL)\n");
+    printf("[3] movimentacoes (INDISPONIVEL)\n");
+    printf("[0] Voltar ao menu principal\n");
     do{
         fflush(stdin);
         scanf("%d", &resp);
@@ -121,19 +108,50 @@ int menu_funcionario()
     int resp;
     printf("[1] Realizar um cadastro\n");
     printf("[2] Atualizar dados do cliente\n");
-    printf("[0] Sair\n");
+    printf("[3] Mostrar cadastros ativos\n");
+    printf("[4] Realizar backup\n");
+    printf("[5] Testar backup\n");
+    printf("[6] Excluir todos os dados\n");
+    printf("[0] Voltar ao menu principal\n");
     do{
         fflush(stdin);
         scanf("%d", &resp);
-        if ((resp < 0) || (resp > 2)){
+        if ((resp < 0) || (resp > 6)){
             printf("Insira um valor valido: ");
         }
-    } while ((resp < 0) || (resp > 2));
+    } while ((resp < 0) || (resp > 6));
     switch (resp){
         case 1 : cadastrar();
         break;
-        case 2 : //atualiza();
+        case 2 : atualiza();
         break;
+        case 3 : mostrar_cadastros();
+        break;
+        case 4 : realizar_backup();
+        break;
+        case 5 : testar_backup();
+        break;
+        case 6 :
+                for(int i = 4; i >= 0; i --){
+                    char senha[17];
+                    printf("Insira a senha: ");
+                    fflush(stdin);
+                    gets(senha);
+                    if (strcmp(senha, "admin") != 0){
+                        printf("Senha invalida\n");
+                        printf("%d tentativas restantes\n", i);
+                    }
+                    if (strcmp(senha, "admin") == 0){
+                        reseta();
+                        break;
+                    }
+                    if (i == 0){
+                        printf("Voce excedeu o limite de tentativas\n");
+                        system("pause");
+                        break;
+                    }
+                }
+            break;
     }
     return resp;
 }
@@ -227,11 +245,185 @@ void cadastrar()
     gets(buffer.senha);
     fflush(stdin);
 
+    printf("Insira a data de abertura da conta: \n");
+    printf("Insira o dia: ");
+    do{
+        fflush(stdin);
+        scanf("%d", &buffer.data_abertura[0]);
+        if ((buffer.data_abertura[0] < 1) &&
+             (buffer.data_abertura[0] > 31))
+            printf("Insira um dia valido: ");
+    } while ((buffer.data_abertura[0] < 1) &&
+             (buffer.data_abertura[0] > 31));
+
+    printf("Insira o mes: ");
+    do{
+        fflush(stdin);
+        scanf("%d", &buffer.data_abertura[1]);
+        if ((buffer.data_abertura[1] < 1) &&
+             (buffer.data_abertura[1] > 12))
+            printf("Insira um mes valido: ");
+    } while ((buffer.data_abertura[1] < 1) &&
+             (buffer.data_abertura[1] > 12));
+
+    printf("Insira o ano: ");
+    do{
+        fflush(stdin);
+        scanf("%d", &buffer.data_abertura[2]);
+        if ((buffer.data_abertura[2] < 2021) &&
+             (buffer.data_abertura[2] > 2031))
+            printf("Insira um ano valido: ");
+    } while ((buffer.data_abertura[2] < 2021) &&
+             (buffer.data_abertura[2] > 2031));
+
+    printf("Insira a data de vencimento da conta: ");
+    printf("Insira o dia: ");
+    do{
+        fflush(stdin);
+        scanf("%d", &buffer.data_vencimento[0]);
+        if ((buffer.data_vencimento[0] < 1) &&
+             (buffer.data_vencimento[0] > 31))
+            printf("Insira um dia valido: ");
+    } while ((buffer.data_vencimento[0] < 1) &&
+             (buffer.data_vencimento[0] > 31));
+
+    printf("Insira o mes: ");
+    do{
+        fflush(stdin);
+        scanf("%d", &buffer.data_vencimento[1]);
+        if ((buffer.data_vencimento[1] < 1) &&
+             (buffer.data_vencimento[1] > 12))
+            printf("Insira um mes valido: ");
+    } while ((buffer.data_vencimento[1] < 1) &&
+             (buffer.data_vencimento[1] > 12));
+
+    printf("Insira o ano: ");
+    do{
+        fflush(stdin);
+        scanf("%d", &buffer.data_vencimento[2]);
+        if ((buffer.data_vencimento[2] < 2021) &&
+             (buffer.data_vencimento[2] > 2031))
+            printf("Insira um ano valido: ");
+    } while ((buffer.data_vencimento[2] < 2021) &&
+             (buffer.data_vencimento[2] > 2031));
+
     arq_cad = fopen("cadastros.cad", "rb+");
     fseek(arq_cad, (cod - 1)*sizeof(struct cadastro), SEEK_SET);
     fwrite(&buffer, sizeof(struct cadastro), 1, arq_cad);
     fclose(arq_cad);
 }
+
+void atualiza()
+{
+    int cod;
+    char resp, nome[41];
+    bool repetido;
+
+    do{
+        repetido = false;
+        do{
+            printf("Insira o codigo da conta [entre 1 e 500]: ");
+            fflush(stdin);
+            scanf("%d", &cod);
+            if ((cod < 1) || (cod > 500))
+                printf("Codigo invalido\nInsira um codigo entre 1 e 500\n");
+        } while ((cod < 1) || (cod > 500));
+        arq_cad = fopen("cadastros.cad", "rb");
+        repetido = false;
+        rewind(arq_cad);
+        fseek(arq_cad, (cod - 1)*sizeof(struct cadastro), SEEK_SET);
+        fread(&buffer, sizeof(struct cadastro), 1, arq_cad);
+        if(strcmp(buffer.nome, " ") == 0){
+            repetido = false;
+            printf("Codigo inserido nao existe\n");
+        }
+        else{
+            repetido = true;
+
+        }
+        fclose(arq_cad);
+    } while(!repetido);
+
+    printf("Insira o nome do titular da conta: ");
+    fflush(stdin);
+    gets(buffer.nome);
+
+    printf("Insira o tipo da conta: \n");
+    buffer.tipo_conta = menu_conta();
+    fflush(stdin);
+
+    printf("Insira a senha da conta: ");
+    gets(buffer.senha);
+    fflush(stdin);
+
+    printf("Insira a data de abertura da conta: \n");
+    printf("Insira o dia: ");
+    do{
+        fflush(stdin);
+        scanf("%d", &buffer.data_abertura[0]);
+        if ((buffer.data_abertura[0] < 1) &&
+             (buffer.data_abertura[0] > 31))
+            printf("Insira um dia valido: ");
+    } while ((buffer.data_abertura[0] < 1) &&
+             (buffer.data_abertura[0] > 31));
+
+    printf("Insira o mes: ");
+    do{
+        fflush(stdin);
+        scanf("%d", &buffer.data_abertura[1]);
+        if ((buffer.data_abertura[1] < 1) &&
+             (buffer.data_abertura[1] > 12))
+            printf("Insira um mes valido: ");
+    } while ((buffer.data_abertura[1] < 1) &&
+             (buffer.data_abertura[1] > 12));
+
+    printf("Insira o ano: ");
+    do{
+        fflush(stdin);
+        scanf("%d", &buffer.data_abertura[2]);
+        if ((buffer.data_abertura[2] < 2021) &&
+             (buffer.data_abertura[2] > 2031))
+            printf("Insira um ano valido: ");
+    } while ((buffer.data_abertura[2] < 2021) &&
+             (buffer.data_abertura[2] > 2031));
+
+    printf("Insira a data de vencimento da conta: \n");
+    printf("Insira o dia: ");
+    do{
+        fflush(stdin);
+        scanf("%d", &buffer.data_vencimento[0]);
+        if ((buffer.data_vencimento[0] < 1) &&
+             (buffer.data_vencimento[0] > 31))
+            printf("Insira um dia valido: ");
+    } while ((buffer.data_vencimento[0] < 1) &&
+             (buffer.data_vencimento[0] > 31));
+
+    printf("Insira o mes: ");
+    do{
+        fflush(stdin);
+        scanf("%d", &buffer.data_vencimento[1]);
+        if ((buffer.data_vencimento[1] < 1) &&
+             (buffer.data_vencimento[1] > 12))
+            printf("Insira um mes valido: ");
+    } while ((buffer.data_vencimento[1] < 1) &&
+             (buffer.data_vencimento[1] > 12));
+
+    printf("Insira o ano: ");
+    do{
+        fflush(stdin);
+        scanf("%d", &buffer.data_vencimento[2]);
+        if ((buffer.data_vencimento[2] < 2021) &&
+             (buffer.data_vencimento[2] > 2031))
+            printf("Insira um ano valido: ");
+    } while ((buffer.data_vencimento[2] < 2021) &&
+             (buffer.data_vencimento[2] > 2031));
+
+    arq_cad = fopen("cadastros.cad", "rb+");
+    fseek(arq_cad, (cod - 1)*sizeof(struct cadastro), SEEK_SET);
+    fwrite(&buffer, sizeof(struct cadastro), 1, arq_cad);
+    fclose(arq_cad);
+}
+
 enum tipo menu_conta()
 {
     enum tipo tipo_conta;
@@ -247,4 +439,113 @@ enum tipo menu_conta()
     } while ((tipo_conta != simples) &&
              (tipo_conta != especial));
     return (tipo_conta);
+}
+void login_func()
+{
+    char senha[17];
+    bool acesso;
+
+    for(int i = 4; i >= 0; i --){
+        acesso = false;
+        printf("Insira a senha: ");
+        fflush(stdin);
+        gets(senha);
+        if (strcmp(senha, "admin") != 0){
+            printf("Senha invalida\n");
+            printf("%d tentativas restantes\n", i);
+        }
+        if (strcmp(senha, "admin") == 0){
+            acesso = true;
+            break;
+        }
+        if (i == 0){
+            printf("Voce excedeu o limite de tentativas\n");
+            system("pause");
+            break;
+        }
+    }
+    if (acesso){
+        menu_funcionario();
+    }
+}
+
+void reseta()
+{
+    arq_cad = fopen("cadastros.cad", "wb");
+    rewind(arq_cad);
+    for (int i = 1; i <= 500; i ++ ){
+        buffer.conta = i;
+        strcpy(buffer.nome, " ");
+        strcpy(buffer.senha, "admin");
+        fwrite(&buffer, sizeof(struct cadastro), 1, arq_cad);
+    }
+    fclose(arq_cad);
+}
+
+void mostrar_cadastros()
+{
+        arq_cad = fopen("cadastros.cad", "rb");
+    while (true){
+        fread(&buffer, sizeof(struct cadastro), 1, arq_cad);
+        if (strcmp(buffer.nome, " ") != 0){
+            printf("codigo: %d\nNome: %s\n", buffer.conta, buffer.nome);
+            printf("data de abertura: %d/%d/%d\n", buffer.data_abertura[0],
+                   buffer.data_abertura[1], buffer.data_abertura[2]);
+            printf("data de vencimento: %d/%d/%d\n", buffer.data_vencimento[0],
+                   buffer.data_vencimento[1], buffer.data_vencimento[2]);
+            printf("Tipo de conta: ");
+            switch(buffer.tipo_conta){
+                case simples : printf("Simples \n\n");
+                break;
+                case especial : printf("Especial \n\n");
+                break;
+            }
+        }
+
+        if (feof(arq_cad)){
+            system("pause");
+            break;
+        }
+    }
+    fclose(arq_cad);
+}
+void realizar_backup()
+{
+    arq_cad = fopen("cadastros.cad", "rb");
+    arq_test = fopen("backup-cadastros.cad", "wb");
+    while (true){
+        fread(&buffer, sizeof(struct cadastro), 1, arq_cad);
+        if (feof(arq_cad))
+            break;
+        fwrite(&buffer, sizeof(struct cadastro), 1, arq_test);
+    }
+    fclose(arq_cad);
+    fclose(arq_test);
+}
+void testar_backup()
+{
+    arq_cad = fopen("backup-cadastros.cad", "rb");
+    while (true){
+        fread(&buffer, sizeof(struct cadastro), 1, arq_cad);
+        if (strcmp(buffer.nome, " ") != 0){
+            printf("codigo: %d\nNome: %s\n", buffer.conta, buffer.nome);
+            printf("data de abertura: %d/%d/%d\n", buffer.data_abertura[0],
+                   buffer.data_abertura[1], buffer.data_abertura[2]);
+            printf("data de vencimento: %d/%d/%d\n", buffer.data_vencimento[0],
+                   buffer.data_vencimento[1], buffer.data_vencimento[2]);
+            printf("Tipo de conta: ");
+            switch(buffer.tipo_conta){
+                case simples : printf("Simples \n\n");
+                break;
+                case especial : printf("Especial \n\n");
+                break;
+            }
+        }
+
+        if (feof(arq_cad)){
+            system("pause");
+            break;
+        }
+    }
+    fclose(arq_cad);
 }
