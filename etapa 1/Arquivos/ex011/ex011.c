@@ -195,12 +195,9 @@ void cadastrar()
         repetido = false;
         fseek(arq_cad, (cod - 1)*sizeof(struct cadastro),SEEK_SET);
         fread(&buffer, sizeof(struct cadastro), 1, arq_test);
-        if (feof(arq_test))
-            break;
         if(strcmp(buffer.nome, " ") != 0){
             repetido = true;
             printf("Codigo inserido ja utilizado\n");
-            break;
         }
         close(arq_test);
     } while(repetido);
@@ -226,9 +223,7 @@ void cadastrar()
 enum tipo menu_conta()
 {
     enum tipo tipo_conta;
-    system("cls");
     do{
-        printf("Insira o tipo da conta: \n");
         printf("[1] Simples\n");
         printf("[2] Especial\n");
         fflush(stdin);
