@@ -549,3 +549,8 @@ void testar_backup()
     }
     fclose(arq_cad);
 }
+void op_saque
+{
+
+
+}
