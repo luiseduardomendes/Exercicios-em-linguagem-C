@@ -32,6 +32,7 @@ struct movimento{
     int data_mov[3];
     enum op op_mov;
     float valor;
+    int codigo;
 }buffer_mov;
 
 struct cadastro{
@@ -97,9 +98,9 @@ int menu_cliente(int codigo)
     switch (resp){
         case 1 : op_saque(codigo);
         break;
-        case 2 : //op_deposito(codigo);
+        case 2 : op_deposito(codigo);
         break;
-        case 3 : //op_moviment(codigo);
+        case 3 : op_movimento(codigo);
         break;
         case 4 : //op_todos_mov(codigo);
         break;
@@ -567,6 +568,7 @@ void testar_backup()
 void op_saque(int codigo)
 {
     float valor;
+    char resp;
     arq_cad = fopen("cadastros.cad", "rb+");
     arq_mov = fopen("movimentacoes.cad", "ab+");
     fseek(arq_cad, (codigo - 1) * sizeof(struct cadastro), SEEK_SET);
@@ -580,33 +582,89 @@ void op_saque(int codigo)
             printf("Aguarde a contagem das cedulas...\n");
 
             buffer.saldo -= valor;
-            fwrite(&buffer, sizeof(struct cadastro), 1, arq_test);
+
+            fseek(arq_cad, -1*sizeof(struct cadastro), SEEK_CUR);
+            fwrite(&buffer, sizeof(struct cadastro), 1, arq_cad);
             buffer_mov.valor = valor;
             buffer_mov.op_mov = 2;
             buffer_mov.data_mov[0] = 5;
             buffer_mov.data_mov[1] = 8;
             buffer_mov.data_mov[2] = 2021;
 
+
             fwrite(&buffer_mov, sizeof(struct movimento), 1, arq_mov);
             system("pause");
-            rewind(arq_mov);
-            while(true){
-                fread(&buffer_mov, sizeof(struct movimento), 1, arq_mov);
-                if(feof(arq_mov))
-                    break;
-                printf("movimento: ");
-                switch(buffer_mov.op_mov){
-                    case deposito : printf("Deposito\n");
-                    break;
-                    case saque : printf("Saque\n");
-                    break;
-                }
-                printf("valor: R$%.2f\n", buffer_mov.valor);
-                printf("data: %d/%d/%d\n\n", buffer_mov.data_mov[0], buffer_mov.data_mov[1], buffer_mov.data_mov[2]);
+
+            printf("Deseja consultar seu saldo? [S/N]");
+            scanf(" %c", &resp);
+            resp = toupper(resp);
+            if (resp == 'S'){
+                printf("Saldo atual: R$%.2f\n\n", buffer.saldo);
+                system("pause");
             }
-            system("pause");
         }
     } while (buffer.saldo < valor);
     fclose(arq_cad);
     fclose(arq_mov);
+}
+void op_deposito(int codigo)
+{
+    float valor;
+    char resp;
+    arq_cad = fopen("cadastros.cad", "rb+");
+    arq_mov = fopen("movimentacoes.cad", "ab+");
+    fseek(arq_cad, (codigo - 1) * sizeof(struct cadastro), SEEK_SET);
+    fread(&buffer, sizeof(struct cadastro), 1, arq_cad);
+    printf("Digite o valor do deposito: ");
+
+    scanf("%f", &valor);
+
+    printf("Saldo depositado com sucesso!\n");
+
+    buffer.saldo += valor;
+    fseek(arq_cad, -1*sizeof(struct cadastro), SEEK_CUR);
+    fwrite(&buffer, sizeof(struct cadastro), 1, arq_cad);
+    buffer_mov.valor = valor;
+    buffer_mov.op_mov = 1;
+    buffer_mov.data_mov[0] = 5;
+    buffer_mov.data_mov[1] = 8;
+    buffer_mov.data_mov[2] = 2021;
+    buffer_mov.codigo = codigo;
+
+
+    fwrite(&buffer_mov, sizeof(struct movimento), 1, arq_mov);
+
+    printf("Deseja consultar seu saldo? [S/N]");
+    scanf(" %c", &resp);
+    resp = toupper(resp);
+    if (resp == 'S'){
+        printf("Saldo atual: R$%.2f\n\n", buffer.saldo);
+        system("pause");
+    }
+
+    fclose(arq_cad);
+    fclose(arq_mov);
+
+}
+
+void op_movimento(int codigo)
+{
+    arq_mov = fopen("movimentacoes.cad", "rb");
+    while(true){
+        fread(&buffer_mov, sizeof(struct movimento), 1, arq_mov);
+        if(feof(arq_mov))
+            break;
+        if(buffer_mov.codigo ==  codigo){
+            printf("movimento: ");
+            switch(buffer_mov.op_mov){
+                case deposito : printf("Deposito\n");
+                break;
+                case saque : printf("Saque\n");
+                break;
+            }
+            printf("valor: R$%.2f\n", buffer_mov.valor);
+            printf("data: %d/%d/%d\n\n", buffer_mov.data_mov[0], buffer_mov.data_mov[1], buffer_mov.data_mov[2]);
+        }
+    }
+    system("pause");
 }
