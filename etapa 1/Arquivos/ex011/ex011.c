@@ -31,6 +31,7 @@ void realizar_backup();
 struct movimento{
     int data_mov[3];
     enum op op_mov;
+    float valor;
 }buffer_mov;
 
 struct cadastro{
@@ -159,6 +160,7 @@ int menu_funcionario()
     }
     return resp;
 }
+
 void login()
 {
     int codigo;
@@ -208,6 +210,7 @@ void login()
         menu_cliente(codigo - 1);
     }
 }
+
 void cadastrar()
 {
     int cod, total_lido;
@@ -445,6 +448,7 @@ enum tipo menu_conta()
              (tipo_conta > especial));
     return (tipo_conta);
 }
+
 void login_func()
 {
     char senha[17];
@@ -531,6 +535,7 @@ void realizar_backup()
     fclose(arq_cad);
     fclose(arq_test);
 }
+
 void testar_backup()
 {
     arq_cad = fopen("backup-cadastros.cad", "rb");
@@ -563,7 +568,7 @@ void op_saque(int codigo)
 {
     float valor;
     arq_cad = fopen("cadastros.cad", "rb+");
-    arq_mov = fopen("movimentacoes.cad", "ab");
+    arq_mov = fopen("movimentacoes.cad", "ab+");
     fseek(arq_cad, (codigo - 1) * sizeof(struct cadastro), SEEK_SET);
     fread(&buffer, sizeof(struct cadastro), 1, arq_cad);
     printf("Digite o valor do saque: ");
@@ -576,14 +581,16 @@ void op_saque(int codigo)
 
             buffer.saldo -= valor;
             fwrite(&buffer, sizeof(struct cadastro), 1, arq_test);
+            buffer_mov.valor = valor;
             buffer_mov.op_mov = 2;
             buffer_mov.data_mov[0] = 5;
             buffer_mov.data_mov[1] = 8;
             buffer_mov.data_mov[2] = 2021;
+
             fwrite(&buffer_mov, sizeof(struct movimento), 1, arq_mov);
             system("pause");
             rewind(arq_mov);
-            do{
+            while(true){
                 fread(&buffer_mov, sizeof(struct movimento), 1, arq_mov);
                 if(feof(arq_mov))
                     break;
@@ -594,8 +601,9 @@ void op_saque(int codigo)
                     case saque : printf("Saque\n");
                     break;
                 }
+                printf("valor: R$%.2f\n", buffer_mov.valor);
                 printf("data: %d/%d/%d\n\n", buffer_mov.data_mov[0], buffer_mov.data_mov[1], buffer_mov.data_mov[2]);
-            } while(!feof(arq_mov));
+            }
             system("pause");
         }
     } while (buffer.saldo < valor);
