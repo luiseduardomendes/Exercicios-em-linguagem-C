@@ -3,6 +3,7 @@
 #include <string.h>
 #include <ctype.h>
 #include <stdbool.h>
+#include <time.h>
 
 FILE *arq_cad, *arq_test;
 FILE *arq_mov;
@@ -25,11 +26,12 @@ enum tipo menu_conta();
 void reseta();
 void mostrar_cadastros();
 void testar_backup();
+void realizar_backup();
 
 struct movimento{
     int data_mov[3];
-    enum op movimto;
-};
+    enum op op_mov;
+}buffer_mov;
 
 struct cadastro{
     int conta;
@@ -38,6 +40,7 @@ struct cadastro{
     enum tipo tipo_conta;
     int data_vencimento[3];
     char senha[17];
+    float saldo;
 }buffer;
 
 int main()
@@ -91,7 +94,7 @@ int menu_cliente(int codigo)
         }
     } while ((resp < 0) || (resp > 3));
     switch (resp){
-        case 1 : //op_saque(codigo);
+        case 1 : op_saque(codigo);
         break;
         case 2 : //op_deposito(codigo);
         break;
@@ -434,12 +437,12 @@ enum tipo menu_conta()
         printf("[2] Especial\n");
         fflush(stdin);
         scanf("%d", &tipo_conta);
-        if ((tipo_conta != simples) &&
-             (tipo_conta != especial))
+        if ((tipo_conta < fechada) &&
+             (tipo_conta > especial))
             printf("Numero invalido\n");
 
-    } while ((tipo_conta != simples) &&
-             (tipo_conta != especial));
+    } while ((tipo_conta < fechada) &&
+             (tipo_conta > especial));
     return (tipo_conta);
 }
 void login_func()
@@ -477,6 +480,7 @@ void reseta()
     rewind(arq_cad);
     for (int i = 1; i <= 500; i ++ ){
         buffer.conta = i;
+        buffer.tipo_conta = 0;
         strcpy(buffer.nome, " ");
         strcpy(buffer.senha, "admin");
         fwrite(&buffer, sizeof(struct cadastro), 1, arq_cad);
@@ -486,7 +490,7 @@ void reseta()
 
 void mostrar_cadastros()
 {
-        arq_cad = fopen("cadastros.cad", "rb");
+    arq_cad = fopen("cadastros.cad", "rb");
     while (true){
         fread(&buffer, sizeof(struct cadastro), 1, arq_cad);
         if (strcmp(buffer.nome, " ") != 0){
@@ -497,11 +501,14 @@ void mostrar_cadastros()
                    buffer.data_vencimento[1], buffer.data_vencimento[2]);
             printf("Tipo de conta: ");
             switch(buffer.tipo_conta){
-                case simples : printf("Simples \n\n");
+                case fechada : printf("Fechada \n");
                 break;
-                case especial : printf("Especial \n\n");
+                case simples : printf("Simples \n");
+                break;
+                case especial : printf("Especial \n");
                 break;
             }
+            printf("Saldo disponivel: R$%.2f\n\n", buffer.saldo);
         }
 
         if (feof(arq_cad)){
@@ -551,23 +558,47 @@ void testar_backup()
     }
     fclose(arq_cad);
 }
+
 void op_saque(int codigo)
 {
+    float valor;
     arq_cad = fopen("cadastros.cad", "rb+");
-    //arq_mov = fopen("movimentacoes.cad", "ab");
+    arq_mov = fopen("movimentacoes.cad", "ab");
     fseek(arq_cad, (codigo - 1) * sizeof(struct cadastro), SEEK_SET);
     fread(&buffer, sizeof(struct cadastro), 1, arq_cad);
     printf("Digite o valor do saque: ");
     do{
         scanf("%f", &valor);
         if (buffer.saldo < valor)
-            printf("Valor indisponivel");
+            printf("Valor indisponivel\nInsira outro: ");
         else{
+            printf("Aguarde a contagem das cedulas...\n");
+
             buffer.saldo -= valor;
             fwrite(&buffer, sizeof(struct cadastro), 1, arq_test);
-            //fwrite(&buffer_mov, sizeof(struct mov), 1, arq_mov);
+            buffer_mov.op_mov = 2;
+            buffer_mov.data_mov[0] = 5;
+            buffer_mov.data_mov[1] = 8;
+            buffer_mov.data_mov[2] = 2021;
+            fwrite(&buffer_mov, sizeof(struct movimento), 1, arq_mov);
+            system("pause");
+            rewind(arq_mov);
+            do{
+                fread(&buffer_mov, sizeof(struct movimento), 1, arq_mov);
+                if(feof(arq_mov))
+                    break;
+                printf("movimento: ");
+                switch(buffer_mov.op_mov){
+                    case deposito : printf("Deposito\n");
+                    break;
+                    case saque : printf("Saque\n");
+                    break;
+                }
+                printf("data: %d/%d/%d\n\n", buffer_mov.data_mov[0], buffer_mov.data_mov[1], buffer_mov.data_mov[2]);
+            } while(!feof(arq_mov));
+            system("pause");
         }
-    }
+    } while (buffer.saldo < valor);
     fclose(arq_cad);
-    //fclose(arq_mov);
+    fclose(arq_mov);
 }
