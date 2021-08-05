@@ -5,6 +5,7 @@
 #include <stdbool.h>
 
 FILE *arq_cad, *arq_test;
+FILE *arq_mov;
 
 enum op {deposito = 1, saque};
 enum tipo {fechada = 0, simples, especial};
@@ -199,6 +200,7 @@ void login()
             break;
         }
     }
+    fclose(arq_cad);
     if (acesso){
         menu_cliente(codigo - 1);
     }
@@ -549,8 +551,23 @@ void testar_backup()
     }
     fclose(arq_cad);
 }
-void op_saque
+void op_saque(int codigo)
 {
-
-
+    arq_cad = fopen("cadastros.cad", "rb+");
+    //arq_mov = fopen("movimentacoes.cad", "ab");
+    fseek(arq_cad, (codigo - 1) * sizeof(struct cadastro), SEEK_SET);
+    fread(&buffer, sizeof(struct cadastro), 1, arq_cad);
+    printf("Digite o valor do saque: ");
+    do{
+        scanf("%f", &valor);
+        if (buffer.saldo < valor)
+            printf("Valor indisponivel");
+        else{
+            buffer.saldo -= valor;
+            fwrite(&buffer, sizeof(struct cadastro), 1, arq_test);
+            //fwrite(&buffer_mov, sizeof(struct mov), 1, arq_mov);
+        }
+    }
+    fclose(arq_cad);
+    //fclose(arq_mov);
 }
