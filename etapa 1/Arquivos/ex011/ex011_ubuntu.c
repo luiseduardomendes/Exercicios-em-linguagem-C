@@ -3,8 +3,8 @@
 #include <string.h>
 #include <ctype.h>
 #include <stdbool.h>
-#include <time.h>
 #include <stdio_ext.h>
+
 
 FILE *arq_cad, *arq_test;
 FILE *arq_mov;
@@ -62,7 +62,7 @@ int main()
 int menu()
 {
     int resp;
-    printf("\e[H\e[2J");
+    //limpar a tela
     do{
         printf("[1] Acesso ao cliente\n");
         printf("[2] Acesso ao funcionario\n");
@@ -87,7 +87,7 @@ int menu()
 int menu_cliente(int codigo)
 {
     int resp;
-    printf("\e[H\e[2J");
+    //limpar a tela
     printf("[1] Saque (INDISPONIVEL)\n");
     printf("[2] Deposito (INDISPONIVEL)\n");
     printf("[3] movimentacoes (INDISPONIVEL)\n");
@@ -114,7 +114,7 @@ int menu_cliente(int codigo)
 
 int menu_funcionario()
 {
-    printf("\33[H\33[2J");
+    //limpar a tela
     int resp;
     printf("[1] Realizar um cadastro\n");
     printf("[2] Atualizar dados do cliente\n");
@@ -222,6 +222,7 @@ void cadastrar()
     char resp, nome[41];
     bool repetido;
 
+    //limpar a tela
     do{
         repetido = false;
         do{
@@ -332,6 +333,7 @@ void atualiza()
     char resp, nome[41];
     bool repetido;
 
+    //limpar a tela
     do{
         repetido = false;
         do{
@@ -438,7 +440,7 @@ void atualiza()
 }
 
 enum tipo menu_conta()
-{
+        {
     enum tipo tipo_conta;
     do{
         printf("[1] Simples\n");
@@ -458,7 +460,8 @@ enum tipo menu_conta()
         {
     char senha[17];
     bool acesso;
-
+    
+    //limpar a tela
     for(int i = 4; i >= 0; i --){
         acesso = false;
         printf("Insira a senha: ");
@@ -489,7 +492,7 @@ enum tipo menu_conta()
     rewind(arq_cad);
     for (int i = 1; i <= 500; i ++ ){
         buffer.conta = i;
-        buffer.tipo_conta = 0;
+        buffer.tipo_conta = fechada;
         strcpy(buffer.nome, " ");
         strcpy(buffer.senha, "admin");
         fwrite(&buffer, sizeof(struct cadastro), 1, arq_cad);
@@ -499,10 +502,11 @@ enum tipo menu_conta()
 
         void mostrar_cadastros()
         {
+    //limpar a tela
     arq_cad = fopen("cadastros.cad", "rb");
     while (true){
         fread(&buffer, sizeof(struct cadastro), 1, arq_cad);
-        if (buffer.tipo_conta == fechada){
+        if (buffer.tipo_conta != fechada){
             printf("codigo: %d\nNome: %s\n", buffer.conta, buffer.nome);
             printf("data de abertura: %d/%d/%d\n", buffer.data_abertura[0],
                    buffer.data_abertura[1], buffer.data_abertura[2]);
@@ -567,10 +571,10 @@ enum tipo menu_conta()
         }
     }
     fclose(arq_cad);
-}
+        }
 
-void op_saque(int codigo)
-{
+        void op_saque(int codigo)
+        {
     float valor;
     char resp;
     arq_cad = fopen("cadastros.cad", "rb+");
@@ -649,10 +653,10 @@ void op_saque(int codigo)
     fclose(arq_cad);
     fclose(arq_mov);
 
-}
+        }
 
-void op_movimento(int codigo)
-{
+        void op_movimento(int codigo)
+        {
     arq_mov = fopen("movimentacoes.cad", "rb");
     while(true){
         fread(&buffer_mov, sizeof(struct movimento), 1, arq_mov);
@@ -671,9 +675,9 @@ void op_movimento(int codigo)
         }
     }
     getchar();
-}
+        }
 
-void abre_arquivos(){
+        void abre_arquivos(){
     arq_cad = fopen("cadastros.cad", "rb");
     if (arq_cad == NULL){
         arq_cad = fopen("cadastros.cad", "wb");
