@@ -84,9 +84,9 @@ int menu_cliente(int codigo)
 {
     int resp;
     system("cls");
-    printf("[1] Saque (INDISPONIVEL)\n");
-    printf("[2] Deposito (INDISPONIVEL)\n");
-    printf("[3] movimentacoes (INDISPONIVEL)\n");
+    printf("[1] Saque\n");
+    printf("[2] Deposito\n");
+    printf("[3] movimentacoes\n");
     printf("[0] Voltar ao menu principal\n");
     do{
         fflush(stdin);
