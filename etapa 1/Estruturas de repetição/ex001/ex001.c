@@ -2,11 +2,16 @@
 #define NUM_REPRESENT 10
 
 int main() {
-    int codigo, itens, totalVendas = 0;
-    float valorVenda, comissao, totalComissoes = 0;
+    int codigo, itens;
+    float valorVenda, comissao,totalVendas = 0, totalComissoes = 0;
 
-    printf("Digite o codigo do funcionario [0 para parar]: ");
-    scanf("%d", codigo);
+    do {
+        printf("Digite o codigo do funcionario [0 para parar]: ");
+        scanf("%d", &codigo);
+        if (codigo < 0 || codigo > 10){
+            printf("Digite um codigo valido\n");
+        }
+    } while (codigo < 0 || codigo > 10);
 
     while (codigo > 0){
         printf("Digite o valor da venda: R$");
@@ -46,7 +51,7 @@ int main() {
                 printf("Digite um codigo valido\n");
             }
         } while (codigo < 0 || codigo > 10);
-    } 
+    }
 
     printf("Valor total das vendas: R$%.2f\n", totalVendas);
     printf("Valor total de comissoes: R$%.2f\n", totalComissoes);
