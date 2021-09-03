@@ -1,0 +1,7 @@
+O projeto a seguir apresenta um jogo que consiste nos seguintes 
+objetivos:
+O jogador aparece no centro de um ambiente, no qual aparecem
+aleatoriamente objetos denotados por numeros que vão de 1 a 9,
+quando o jogador obtém o objeto de número 9 o programa é 
+encerrado e mostra a quantidade de passos usados para concluir
+o desafio.   
