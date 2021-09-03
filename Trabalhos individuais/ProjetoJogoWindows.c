@@ -1,3 +1,4 @@
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <locale.h>
@@ -46,7 +47,7 @@ int main()
             }
             printf("\n");
         }
-        __fpurge(stdin);
+        fflush(stdin);
         scanf(" %c", &direcao);
         passos ++;
         direcao = toupper(direcao);
