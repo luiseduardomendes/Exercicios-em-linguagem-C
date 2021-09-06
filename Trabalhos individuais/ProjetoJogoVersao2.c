@@ -5,13 +5,13 @@
 
 int main () {
     setlocale(LC_CTYPE, "");
+
     struct posicao {
         int x, y;
-    }pos, obj, map1, map2;
-    int passos;
-    int i, j, objetivo = 1;
+    }pos, map1, map2;
+
+    int i, j;
     char direcao;
-    char nome;
 
     pos.x = 10;
     pos.y = 10;
@@ -27,10 +27,7 @@ int main () {
             for (j = map2.x; j < map1.x; j ++) {
                 
                 if (i == pos.y && j == pos.x) {
-                    printf("%c ", nome);
-                }
-                else if (i == obj.y && j == obj.x){
-                    printf("%d ", objetivo);
+                    printf("o ");
                 }
                 else printf("- ");
             }
@@ -39,7 +36,6 @@ int main () {
 
         
         scanf(" %c", &direcao);
-        passos ++;
         direcao = toupper(direcao);
         if(direcao == 'A' || direcao == 'S' || direcao == 'D' || direcao == 'W') {
             switch (direcao) {
@@ -60,8 +56,7 @@ int main () {
         map2.y = pos.y + 10;
 
         system("clear");
-    } while (pos.y <= 21 && pos.x <= 21 && pos.y >= 0 && pos.x >= 0 && objetivo < 10);
+    } while (direcao == 'c');
 
-    printf("Você concluiu o desafio usando %d!", passos);
     return 0;
 }
