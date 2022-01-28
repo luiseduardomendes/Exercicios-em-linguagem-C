@@ -1,0 +1,17 @@
+dentro do tmux:
+CTRL + B:			permite comandos do tmux
+CTRL + B -> C:			cria nova seção
+CTRL + B -> número da seção:	muda para a seção selecionada
+CTRL + B -> N:			muda para a próxima seção
+CTRL + B -> W:			mostra a árvore de seções
+CTRL + B -> D:			desconecta do tmux
+CTRL + B -> %:			divide a tela do terminal
+CTRL + B -> (setas):		transiciona entre as telas
+CTRL + B -> ":			divide a tela horizontalmente
+CTRL + B -> x:			fecha uma partição do terminal
+
+bash:
+tmux:				abre o tmux 
+tmux ls:			mostra as seções salvas
+tmux a -t (número da seção):	retorna para a seção fechada
+

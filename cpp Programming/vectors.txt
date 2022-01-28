@@ -1,0 +1,18 @@
+vector::front():
+	returns the first element of the vector
+vector::back():
+	returns the last element of the vector
+vector::size():
+	returns the number of elements of the vector
+vector::capacity():
+	returns how many elements can fit in the vector
+vector::push_back(element):
+	appends an element to the end of the vector
+vector::pop_back():
+	removes an element of the end of the vector
+vector::shrink_to_fit():
+	reduces the capacity to the size of the vector
+vector::insert(where, element):
+	insert an element in the indicated position 
+vector::erase(where):
+	remove an element in the indicated position
