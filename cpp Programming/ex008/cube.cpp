@@ -12,7 +12,11 @@ namespace uiuc{
         std::cout << "Copy constructor invoked!" << std::endl;
     }
 
-    
+    Cube & Cube::operator=(const Cube & obj){
+        length_ = obj.length_;
+        std::cout << "Assignment operator invoked!" << std::endl;
+        return *this;
+    }
 
     double Cube::getVolume(){
         return length_ * length_ * length_;

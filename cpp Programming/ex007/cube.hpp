@@ -5,7 +5,7 @@ namespace uiuc{
         public:
             Cube();
             Cube(const Cube &obj);
-            //Cube& operator=(const Cube & obj);
+            Cube& operator=(const Cube & obj);
 
             double getVolume();
             double getSurfaceArea();
